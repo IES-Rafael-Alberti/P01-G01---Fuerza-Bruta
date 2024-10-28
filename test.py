@@ -1,39 +1,54 @@
 import hashlib
 import pytest
-from hash_module import hash_calculator, find_password 
-
+from hash_module import hashear, comprobarDict  # Asegúrate de que el nombre del módulo sea correcto
 
 # Función simulada para leer contraseñas
-def read_passwords():
-    return ["123456", "password123", "qwerty"]
+def mock_passwords_file():
+    return ["123456\n", "password123\n", "qwerty\n"]
 
-def test_hash_calculator():
+def test_hashear():
     sample_password = "password123"
-    expected_hash = hashlib.sha256(sample_password.encode("utf-8")).hexdigest()
-
-    # Comprobamos que la función hash_calculator devuelva el hash esperado
-    actual_hash = hash_calculator(sample_password)
+    expected_hash = hashlib.sha256(sample_password.encode()).hexdigest()
+    
+    actual_hash = hashear(sample_password)
     assert actual_hash == expected_hash, "El hash calculado no es el esperado."
 
-def test_find_password():
-    target_password = "password123"
-    coded_target_password = hashlib.sha256(target_password.encode("utf-8")).hexdigest()
+def test_comprobarDict_encontrado():
+    password_to_check = "password123"
+    mock_file = mock_passwords_file()
 
-    # Reemplazar la función read_text en find_password
-    found_password = find_password(coded_target_password, read_passwords)
-    
-    assert found_password.strip() == target_password, "La contraseña encontrada no es correcta."
+    # Simular el comportamiento de abrir un archivo
+    class MockFile:
+        def __init__(self, passwords):
+            self.passwords = passwords
+            
+        def readlines(self):
+            return self.passwords
 
-def test_find_password_not_found():
-    coded_password = hashlib.sha256("password123".encode("utf-8")).hexdigest()
+    # Crear un archivo simulado con las contraseñas
+    simulated_file = MockFile(mock_file.copy())
 
-    # Usar una lista de contraseñas que no contiene la contraseña buscada
-    def read_passwords_not_found():
-        return ["123456", "qwerty", "abc123"]
+    result = comprobarDict(password_to_check, simulated_file)
+    assert result == "La contraseña es: password123", "La contraseña debería haber sido encontrada."
 
-    found_password = find_password(coded_password, read_passwords_not_found)
+def test_comprobarDict_no_encontrado():
+    password_to_check = "wrongpassword"
+    mock_file = mock_passwords_file()
 
-    assert found_password is None, "La contraseña debería ser None si no se encuentra."
+    # Simular el comportamiento de abrir un archivo
+    class MockFile:
+        def __init__(self, passwords):
+            self.passwords = passwords
+            
+        def readlines(self):
+            return self.passwords
+
+    # Crear un archivo simulado con las contraseñas
+    simulated_file = MockFile(mock_file.copy())
+
+    result = comprobarDict(password_to_check, simulated_file)
+    assert result == "No se ha encontrado la contraseña en el diccionario", "La contraseña debería haber sido no encontrada."
+
 
 if __name__ == "__main__":
     pytest.main()
