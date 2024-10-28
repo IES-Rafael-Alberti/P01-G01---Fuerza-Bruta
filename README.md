@@ -1,5 +1,7 @@
 # Proyecto: Script de Fuerza Bruta con SHA y Diccionario
 
+[![Python Test](https://github.com/IES-Rafael-Alberti/P01-G01---Fuerza-Bruta/actions/workflows/ci.yml/badge.svg)](https://github.com/IES-Rafael-Alberti/P01-G01---Fuerza-Bruta/actions/workflows/ci.yml)
+
 ## Descripción
 Este proyecto tiene como objetivo desarrollar un script en Python que permita comprobar, mediante fuerza bruta y utilizando un diccionario, el texto con el cual se generó un valor hash mediante el algoritmo SHA (en este caso, SHA-256). Este script puede ser útil en prácticas de ciberseguridad y criptografía, donde se busca recuperar texto original de hashes.
 
@@ -98,4 +100,4 @@ La siguiente tabla compara SecLists con otros diccionarios de contraseñas y lis
 
 SecLists es una colección completa de listas para pruebas de seguridad, muy valorada en la comunidad de ciberseguridad por su constante actualización y versatilidad. Su uso en proyectos de pruebas de seguridad permite abordar diversos vectores de ataque, incluyendo fuerza bruta, inyección y descubrimiento de recursos en la red. Para ataques específicos, como la recuperación de contraseñas, SecLists ofrece listas amplias y actualizadas que aumentan las probabilidades de éxito en comparación con diccionarios más limitados. Por estas razones, SecLists es recomendado como un recurso esencial para este tipo de proyectos, ya que proporciona una variedad de listas útiles para pruebas de contraseñas, payloads de inyección y otros aspectos de seguridad, contribuyendo a una evaluación integral de vulnerabilidades.
 
-[![Python Test](https://github.com/IES-Rafael-Alberti/P01-G01---Fuerza-Bruta/actions/workflows/ci.yml/badge.svg)](https://github.com/IES-Rafael-Alberti/P01-G01---Fuerza-Bruta/actions/workflows/ci.yml)
+
