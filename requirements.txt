@@ -1,4 +1,4 @@
 # Requerimientos del proyecto
 # Dependencias para pruebas
 pytest                 # Asegúrate de usar la versión más adecuada para tu proyecto
-pytest-html            # Para generar reportes en formato HTML
+coverage
