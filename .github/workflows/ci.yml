@@ -27,26 +27,4 @@ jobs:
       
       - name: Ejecutar test
         run: |
-          pytest --junitxml=test-reports/results.xml || true
-          echo "RESULT=$(pytest --tb=short -q)" >> $GITHUB_ENV
-
-      - name: Actualización README.md con resultados actualizados
-        run: |
-          # Crear un archivo temporal
-          echo "### Resultados de las Pruebas" > temp_results.md
-          echo "$RESULT" >> temp_results.md
-          sed -i '/### Resultados de las Pruebas/,/^###/{ /###/!d; }' README.md
-          cat temp_results.md >> README.md
-          rm temp_results.md
-          git config --local user.name "github-actions"
-          git config --local user.email "actions@github.com"
-          git add README.md
-          git commit -m "Actualización README.md con resultados actualizados"
-          git push origin main
-
-      - name: Reportes test
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-reports
-          path: test-reports/results.xml
+          pytest
