@@ -32,8 +32,12 @@ jobs:
 
       - name: Actualización README.md con resultados actualizados
         run: |
-          echo "### Resultados de las pruebas" >> README.md
-          echo "$RESULT" >> README.md
+          # Crear un archivo temporal
+          echo "### Resultados de las Pruebas" > temp_results.md
+          echo "$RESULT" >> temp_results.md
+          sed -i '/### Resultados de las Pruebas/,/^###/{ /###/!d; }' README.md
+          cat temp_results.md >> README.md
+          rm temp_results.md
           git config --local user.name "github-actions"
           git config --local user.email "actions@github.com"
           git add README.md
