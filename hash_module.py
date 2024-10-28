@@ -1,13 +1,15 @@
 import hashlib
 
-#Funcion para hashear en SHA256
+#SHA256
 def hashear(cadena):
     cadena_to_bytes = hashlib.sha256(cadena.encode())  
     bytes_to_hex = cadena_to_bytes.hexdigest()
     return bytes_to_hex 
 
-def comprobarDict(cadena, dict):
-    passwords_list = [linea.rstrip() for linea in dict.readlines()]
+
+def comprobarDict(cadena, diccionario):
+    passwords_file.seek(0)
+    passwords_list = [linea.rstrip() for linea in diccionario.readlines()]
     for password in passwords_list:
         password_hasheada = hashear(password)
         if cadena == password_hasheada:
