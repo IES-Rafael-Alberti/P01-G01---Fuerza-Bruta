@@ -1,6 +1,6 @@
 import hashlib
 import pytest
-from hash_module import hashear, comprobarDict  # Asegúrate de que el nombre del módulo sea correcto
+from code.hash_module import hashear, comprobarDict  # Asegúrate de que el nombre del módulo sea correcto
 
 # Función simulada para leer contraseñas
 def mock_passwords_file():
