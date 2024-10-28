@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+        with:
+          ref: main  # Asegúrate de que estás en la rama main
       
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -45,8 +47,9 @@ jobs:
           rm temp_results.md
           git config --local user.name "github-actions"
           git config --local user.email "actions@github.com"
+          git checkout main  # Asegúrate de estar en la rama main
           git add README.md
-          git commit -m "Actualización README.md con resultados actualizados"
+          git commit -m "Actualización README.md con resultados actualizados" || echo "No changes to commit"
           git push origin main
 
       - name: Archive test reports
