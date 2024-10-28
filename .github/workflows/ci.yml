@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-        with:
-          ref: main  # Asegúrate de que estás en la rama main
       
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -26,31 +24,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pytest-html  # Asegúrate de incluir esto si usas pytest-html
       
-      - name: Create test-reports directory
+      - name: Crear carpeta de reportes
         run: mkdir -p test-reports
-      
+
       - name: Run tests
         run: |
           pytest --junitxml=test-reports/results.xml || true
-          echo "RESULT=$(pytest --tb=short -q)" >> $GITHUB_ENV
-
-      - name: List files in test-reports
-        run: ls -la test-reports
-
-      - name: Actualización README.md con resultados actualizados
-        run: |
-          echo "### Resultados de las Pruebas" > temp_results.md
-          echo "$RESULT" >> temp_results.md
-          sed -i '/### Resultados de las Pruebas/,/^###/{ /###/!d; }' README.md
-          cat temp_results.md >> README.md
-          rm temp_results.md
-          git config --local user.name "github-actions"
-          git config --local user.email "actions@github.com"
-          git checkout main  # Asegúrate de estar en la rama main
-          git add README.md
-          git commit -m "Actualización README.md con resultados actualizados" || echo "No changes to commit"
-          git push origin main
 
       - name: Archive test reports
         if: always()
