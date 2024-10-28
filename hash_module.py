@@ -11,8 +11,8 @@ def comprobarDict(cadena, dict):
     for password in passwords_list:
         password_hasheada = hashear(password)
         if cadena == password_hasheada:
-            return f"La contraseña para el hash {cadena} es {password}"
-    return "No se ha encontrado la contraseña en el diccionario"
+            return True
+    return False
 
     
     
@@ -20,5 +20,7 @@ def comprobarDict(cadena, dict):
 if __name__ == "__main__":
     passwords_file = open("passwords.txt") 
     password_input = input("Introduce la contraseña que quieres comprobar: ")
-    print(hashear(password_input))
-    print(comprobarDict(password_input, passwords_file))
+    if comprobarDict(password_input, passwords_file) == True:
+        print("Tu contraseña no es segura porque se encuentra en el diccionario")
+    else:
+        print("Tu contraseña es segura y no aparece en el diccionario")
