@@ -8,7 +8,7 @@ def hashear(cadena):
 
 
 def comprobarDict(cadena, diccionario):
-    passwords_file.seek(0)
+    diccionario.seek(0)
     passwords_list = [linea.rstrip() for linea in diccionario.readlines()]
     for password in passwords_list:
         password_hasheada = hashear(password)
